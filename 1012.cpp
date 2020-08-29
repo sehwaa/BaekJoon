@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -6,25 +7,21 @@ using namespace std;
 int cabbage[MAX][MAX];
 bool visited[MAX][MAX];
 
+int coX[] = {-1, 1, 0, 0};
+int coY[] = {0, 0, -1, 1};
+
 int answer = 0;
-int M;
-int N;
-int K;
+vector< int > v;
 
-void dfs(int x, int y) {
-  visited[x][y] == true;
-
-  int coX[4] = {-1, 1, 0, 0};
-  int coY[4] = {0, 0, -1, 1};
+void dfs (int x, int y) {
+  visited[x][y] = true;
 
   for (int i = 0; i < 4; i++) {
     int px = x + coX[i];
     int py = y + coY[i];
 
-    if (px >= 0 && py >= 0 && px < N && py < M) {
-      if (cabbage[px][py] == 1 && !visited[px][py]) {
-        dfs(px, py);
-      }
+    if (px >= 0 && py >= 0 && !visited[px][py] && cabbage[px][py] == 1) {
+      dfs(px, py);
     }
   }
 }
@@ -32,13 +29,13 @@ void dfs(int x, int y) {
 int main()
 {
   int T;
+  cin >> T;
 
-  cin >> T ;
-
-  for (int i = 0; i < T; i++) {    
-    answer = 0;
+  int M, N, K;
+  for (int i = 0; i < T; i++) {
     cin >> M >> N >> K;
 
+    answer = 0;
     for (int ci = 0; ci < N; ci++) {
       for (int cj = 0; cj < M; cj++) {
         cabbage[ci][cj] = 0;
@@ -46,26 +43,26 @@ int main()
       }
     }
 
-    int X;
-    int Y;
-
+    int x, y;
     for (int j = 0; j < K; j++) {
-      cin >> X >> Y;
-      if (X >= 0 && Y >= 0 && Y <M && X < N) {
-        cabbage[Y][X] = 1;
-      }
+      cin >> x >> y;
+      cabbage[y][x] = 1;
     }
 
-    for (int ci = 0; ci < N; ci++) {
-      for (int cj = 0; cj < M; cj++) {
-        if (!visited[ci][cj] && cabbage[ci][cj] == 1) {
-          dfs(ci, cj);
+    for (int n = 0; n < N; n++) {
+      for (int m = 0; m < M; m++) {
+        if (!visited[n][m] && cabbage[n][m] == 1) {
+          dfs(n, m);
           answer++;
         }
       }
     }
 
-    cout << answer << endl;
+    v.push_back(answer);
+  }
+
+  for (int i = 0; i < v.size(); i++) {
+    cout<< v.at(i) << endl;
   }
   return 0;
 }
