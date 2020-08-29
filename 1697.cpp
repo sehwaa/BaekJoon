@@ -5,6 +5,10 @@
 using namespace std;
 
 #define MAX 100000
+#define BEFORE 0
+#define AFTER 1
+#define AFTER2 2
+
 vector< vector<int> > adj;
 vector<int> visited;
 int N;
@@ -25,8 +29,19 @@ void bfs(int start) {
       break;
     }
     
-    for (int i = 0; i < adj[node].size(); i++) {
-      int there = adj[node][i];
+    for (int i = 0; i < 3; i++) {
+      int there;
+      switch (i) {
+        case BEFORE:
+          there = node - 1;
+          break;
+        case AFTER:
+          there = node + 1;
+          break;
+        case AFTER2:
+          there = node * 2;
+          break;
+      } 
       if (there == -1) continue;
       if (there >= 0 && there <= MAX && visited[there] == 0) {
         q.push(there);
@@ -41,12 +56,6 @@ int main() {
 
   adj.assign(MAX, vector<int>(1, -1));
   visited = vector<int>(MAX, 0);
-
-  for (int i = N-1; i <= K + 1; i++) {
-    adj[i].push_back(i-1);
-    adj[i].push_back(i+1);
-    adj[i].push_back(2*i);
-  }
 
   bfs(N);
 
