@@ -5,8 +5,8 @@
 using namespace std;
 
 int M, N;
-int **tomato = new int*[N];
-int **visited = new int*[N];
+int **tomato;
+int **visited;
 
 queue< pair<int, int> > q;
 
@@ -40,6 +40,9 @@ int main() {
 
   int value;
 
+  tomato = new int*[N];
+  visited = new int*[N];
+  
   for (int i = 0; i < N; i++) {
     tomato[i] = new int[M];
     visited[i] = new int[M];
@@ -65,7 +68,7 @@ int main() {
   }
 
   if (answer == 0 || answer == -1) cout << answer;
-  else  cout << answer - 1;
+  else cout << answer - 1;
   
   return 0;
 }
