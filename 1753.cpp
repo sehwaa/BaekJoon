@@ -9,7 +9,7 @@ int V, E;
 vector< pair<int, int> > adj[MAX_V];
 
 vector<int> dijkstra(int src) {
-  vector<int> dist(V+1, 11);
+  vector<int> dist(V+1, 3000000);
   dist[src] = 0;
   priority_queue< pair<int, int>, vector< pair<int, int> >, greater<pair<int, int> > > pq;
   pq.push(make_pair(0, src));
@@ -47,7 +47,7 @@ int main() {
 
   vector<int> result = dijkstra(start);
   for(int i = 1; i <= V; i++) {
-    if (result[i] == 11) printf("%s\n", "INF");
+    if (result[i] == 3000000) printf("%s\n", "INF");
     else if (i == start) printf("%d\n", 0);
     else printf("%d\n", result[i]);
   }
