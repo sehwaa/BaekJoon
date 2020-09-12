@@ -1,49 +1,28 @@
-#include <iostream>
+#include <cstdio>
 #include <queue>
 
 using namespace std;
 
-vector < int > v;
-int count = 0;
-void swap(int *a, int *b) {
-	int temp = *a; *a = *b; *b = temp;
-}
-void push(int x, int index) {
-	int child = index;
-	int parent = child / 2;
-	while (parent > 1) {
-		if (v[parent] < v[child]) {
-			swap(&v[parent], &v[child]);
-			child = parent;
-			parent = child / 2;
-		}
-	}
-}
-int pop() {
-	int result = v[0];
-	v.erase(v.begin());
-	return result;
-}
 int main() {
 	int N;
-	cin >> N;
+	scanf("%d", &N);
+	
+	priority_queue< int, vector<int> > pq;
 	
 	int x;
 	for (int i = 0; i < N; i++) {
-		cin >> x;
+		scanf("%d", &x);
 		if (x != 0) {
-			count++;
-      v.push_back(x);
-			push(x, i);
+			pq.push(x);
 		} else {
-			if (count == 0) {
-				cout << 0 << endl;
+			if (pq.size() > 0) {
+				printf("%d\n", pq.top());
+				pq.pop();
 			} else {
-				int result = pop();
-				cout << result << endl;
-				count--;
+				printf("%d\n", 0);
 			}
 		}
 	}
+
 	return 0;
 }
