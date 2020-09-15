@@ -7,8 +7,8 @@ using namespace std;
 vector< pair<int, int> > adj[MAX_V];
 int N, M;
 
-vector<int> bellmanFord(int src) {
-  vector<int> upper(N+1, 10000*6000);
+vector<long long> bellmanFord(int src) {
+  vector<long long> upper(N+1, 10000*6000);
   upper[src] = 0;
   bool updated;
 
@@ -39,7 +39,7 @@ int main() {
     adj[A].push_back(make_pair(B, C));
   }
 
-  vector<int> result = bellmanFord(1);
+  vector<long long> result = bellmanFord(1);
   if (result.size() == 0) {
     printf("%d", -1);
   } else {
