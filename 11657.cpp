@@ -15,6 +15,7 @@ vector<long long> bellmanFord(int src) {
   for (int iter = 1; iter <= N; iter++) {
     updated = false;
     for (int here = 1; here <= N; here++) {
+      if (upper[here] == 10000*6000) continue;
       for (int i = 0; i < adj[here].size(); i++) {
         int there = adj[here][i].first;
         int cost = adj[here][i].second;
