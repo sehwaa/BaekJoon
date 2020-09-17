@@ -7,17 +7,23 @@ using namespace std;
 int n,m;
 vector<int> relationship[MAX];
 bool visited[MAX];
+bool findEnd = false;
 int answer = 0;
-int dfs(int p1, int p2) {
-  cout << "p1: " << p1 << endl;
+
+void dfs(int p1, int p2) {
   visited[p1] = true;
   for (int i = 0; i < relationship[p1].size(); i++) {
-    if (relationship[p1][i] == p2) break;
+    if (findEnd) return;
+  	if (relationship[p1][i] == p2) {
+  		findEnd = true;
+  		break;
+  	}
     if (!visited[relationship[p1][i]]) {
-      dfs(relationship[p1][i], p2);
+    	answer++;
+    	dfs(relationship[p1][i], p2);
     }
   }
-  return answer++;
+  if (!findEnd) answer--;
 }
 
 int main() {
@@ -38,6 +44,7 @@ int main() {
   }
 
   dfs(p1, p2);
-  cout << answer;
+  if (findEnd)	cout << answer+1;
+  else cout << -1;
   return 0;
 }
