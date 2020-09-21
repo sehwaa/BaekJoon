@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -25,18 +26,18 @@ void dfs(int index, int start) {
 }
 
 void beer() {
-  for (int i = 1; i < n; i++) {
+  for (int i = 1; i < n+2; i++) {
     int distX = abs(adj[0].front().first - adj[i].front().first);
     int distY = abs(adj[0].front().second - adj[i].front().second);
-    dist[0].push_back(make_pair(i, distX+distY));
+    if (distX+distY <= 1000) dist[0].push_back(make_pair(i, distX+distY));
   }
 
-  for (int i = 0; i < dist[0].size(); i++) {
-    for (int j = 1; j < n; j++) {
-      if (dist[0][i].first != j) {
-        int distX = abs(adj[dist[0][i].first].front().first - adj[j].front().first);
-        int distY = abs(adj[dist[0][i].first].front().second - adj[j].front().second);
-        if (distX+distY <= 1000) dist[dist[0][i].first].push_back(make_pair(j, distX+distY));
+  for (int i = 1; i < n+2; i++) {
+    for (int j = 1; j < n+2; j++) {
+      if (i != j) {
+        int distX = abs(adj[i].front().first - adj[j].front().first);
+        int distY = abs(adj[i].front().second - adj[j].front().second);
+        if (distX+distY <= 1000) dist[i].push_back(make_pair(j, distX+distY));
       }
     }
   }
