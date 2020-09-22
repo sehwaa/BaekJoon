@@ -44,12 +44,13 @@ int main() {
       after1year(i, j);
     }
   }
-
-  for (int i = 0; i < N; i++) {
-    for (int j = 0; j < M; j++) {
-      printf("%d", freeze[i][j]);
+  year++;
+  for (int i = 1; i < N-1; i++) {
+    for (int j = 1; j < M-1; j++) {
+      if (!visited[year][i][j]) {
+        
+      }
     }
-    printf("\n");
   }
   return 0;
 }
