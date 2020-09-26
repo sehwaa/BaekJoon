@@ -6,7 +6,7 @@ using namespace std;
 
 int N, M;
 int freeze[MAX][MAX];
-bool visited[MAX][MAX];
+bool visited[MAX][MAX][MAX];
 int year = 1;
 
 int coX[4] = {-1, 1, 0, 0};
@@ -17,8 +17,8 @@ void dfs(int x, int y) {
     int px = x + coX[i];
     int py = y + coY[i];
 
-    if (px > 0 && py > 0 && !visited[px][py] && freeze[px][py] > 0) {
-      visited[px][py] = true;
+    if (px > 0 && py > 0 && !visited[year][px][py] && freeze[px][py] > 0) {
+      visited[year][px][py] = true;
       dfs(px, py);
     }
   }
@@ -43,7 +43,7 @@ int melt() {
 
   for (int i = 1; i < N-1; i++) {
     for (int j = 1; j < M-1; j++) {
-      if (!visited[i][j] && freeze[i][j] > 0) {
+      if (!visited[year][i][j] && freeze[i][j] > 0) {
         dfs(i,j);
         cnt++;
       }
@@ -58,7 +58,6 @@ int main() {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < M; j++) {
       scanf("%d", &freeze[i][j]);
-      visited[i][j] = false;
     }
   }
 
@@ -69,11 +68,6 @@ int main() {
     if (num == 0) {
       allMelt = true;
       break;
-    }
-    for (int i = 0; i < N; i++) {
-      for (int j = 0; j < M; j++) {
-        visited[i][j] = false;
-      }
     }
     year++;
   }
