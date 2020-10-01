@@ -1,49 +1,57 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
 
-#define MAX 16
+#define MAX 15
 
 int L, C;
-vector<int> v[MAX];
+vector<char> alphabet;
 bool visited[MAX][MAX];
-char a[MAX];
+vector<char> secret;
 
-void recursive(int index) {
-  if (v[index].size() != 0) {
-    for (int i = 0; i < v[index].size(); i++) {
-      if (!visited[index][v[index][i]]) {
-        visited[index][v[index][i]] = true;
-        recursive(v[index][i]);
-      }
-    }
-  } else {
-    return;
-  }
+void recursiveSearch(int index) {
+	secret.push_back(alphabet[index]);
+
+	if (secret.size() == L) {
+		int ja = 0; int mo = 0;
+		for (int i = 0; i < secret.size(); i++) {
+			if (secret[i] == 'a' || secret[i] == 'e' || secret[i] == 'i' || secret[i] == 'o' || secret[i] == 'u') mo++;
+			else ja++;
+		}
+
+		if (ja >= 2 && mo >= 1) {
+			for (int i = 0; i < secret.size(); i++) {
+				cout << secret[i];
+			}
+			cout << endl;
+		}
+		return;
+	}
+
+	for (int j = index + 1; j < C; j++) {
+		if (!visited[index][j]) {
+			recursiveSearch(j);
+		}
+		secret.pop_back();
+	}
 }
 
 int main() {
-  cin >> L >> C;
+	cin >> L >> C;
 
-  for (int i = 0; i < C; i++) {
-    cin >> a[i];
-  }
+	for (int i = 0; i < C; i++) {
+		char a;
+		cin >> a;
+		alphabet.push_back(a);
+	}
 
-  for (int i = 0; i < C; i++) {
-    for (int j = 0; j < C; j++) {
-      if (i == j) {
-        continue;
-      } else {
-        if (a[i] <= a[j]) {
-          v[i].push_back(j);
-        }
-      }
-    }
-  }
+	sort(alphabet.begin(), alphabet.end());
 
-  for (int i = 0; i < C; i++) {
-    recursive(i);
-  }
-  return 0;
+	for (int i = 0; i < alphabet.size(); i++) {
+		recursiveSearch(i);
+		secret.pop_back();
+	}
+	return 0;
 }
