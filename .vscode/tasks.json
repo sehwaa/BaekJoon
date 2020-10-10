@@ -1,9 +1,14 @@
 {
 	"version": "2.0.0",
+	"runner": "terminal",
+	"type": "shell",
+	"echoCommand": true,
+	"presentation": {
+		"reveal": "always"
+	},
 	"tasks": [
 			{
-					"type": "shell",
-					"label": "g++ build active file",
+					"label": "save and compile for C++",
 					"command": "g++",
 					"args": [
 							"${file}",
@@ -24,20 +29,17 @@
 									"message": 5
 							}
 					},
-					"group": {
-							"kind": "build",
-							"isDefault": true
-					}
+					"group": "build"
 			},
 
 			{
 					"type": "shell",
 					"label": "execute",
-					"command": "cd ${workspaceFolder} && ${fileBasenameNoExtension}",
-					"group": {
-							"kind": "test",
-							"isDefault": true
-					}
+					"command": "cmd",
+					"group": "test",
+					"args": [
+						"/C", "${fileDirname}\\${fileBasenameNoExtension}"
+					]
 			},
 	]
 }
