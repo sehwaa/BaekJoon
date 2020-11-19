@@ -8,11 +8,8 @@ int coX[4] = {-1, 1, 0, 0};
 int coY[4] = {0, 0, -1, 1};
 int som = 0; int yeon = 0;
 int answer = 0;
-int sevenCnt = 1;
  
 void dfs(int x, int y) {
-	cout << "x: " << x << " y: " << y << endl;
-	cout << "som: " << som << " yeon: " << yeon << endl;
 	visited[x][y] = true;
  
 	if (som + yeon == 7) {
@@ -32,8 +29,9 @@ void dfs(int x, int y) {
 				yeon--;
 			} else {
 				dfs (px, py);
-                if (sit[px][py] == 'S') som--;
-	            else yeon--;
+				visited[px][py] = false;
+				if (sit[px][py] == 'S') som--;
+      			else yeon--;
 			}
 		}
 	}
