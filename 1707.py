@@ -1,6 +1,7 @@
 from collections import deque
+import sys
 
-K = int(input())
+K = int(sys.stdin.readline())
 
 
 def bfs(node_list, v):
@@ -17,14 +18,16 @@ def bfs(node_list, v):
             if cn in queue:
                 return False
 
-            if not visited[cn - 1]:
+            if not visited[cn]:
                 queue.append(cn)
 
     return True
 
 
 for _ in range(K):
-    V, E = list(map(int, input().split()))
+    info = sys.stdin.readline().rstrip()
+    V = int(info[0])
+    E = int(info[2])
     node = [[] for _ in range(V+1)]
     for _ in range(E):
         n1, n2 = list(map(int, input().split()))
