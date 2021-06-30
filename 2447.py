@@ -1,24 +1,23 @@
 N = int(input())
-star = []
 
 
-def print_star(s, su):
-    if su * 3 > N:
-        s.split("\n")
-        return
+def print_star(n):
+    if n == 1:
+        return ["*"]
 
-    su *= 3
+    n = n // 3
 
-    temp = ""
-    for i in range(0, 3):
-        for j in range(0, 3):
-            if i != 1 or j != 1:
-                temp += s
-            else:
-                temp += " "
-        temp += "\n"
+    stars = print_star(n)
 
-    print_star(temp, su)
+    s = []
+    for star in stars:
+        s.append(star * 3)
+    for star in stars:
+        s.append(star + " " * n + star)
+    for star in stars:
+        s.append(star * 3)
+
+    return s
 
 
-print_star("*", 1)
+print("\n".join(print_star(N)))
