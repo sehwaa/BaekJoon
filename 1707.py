@@ -1,13 +1,16 @@
+import sys
+sys.setrecursionlimit(10 ** 6)
+
 K = int(input())
 
 for _ in range(K):
-    V, E = map(int, input().split())
+    V, E = [int(x) for x in sys.stdin.readline().split()]
 
     nodes = [[] for _ in range(V)]
     visited = [1] + [0] * (V-1)
 
     for _ in range(E):
-        u, v = map(int, input().split())
+        u, v = [int(x) for x in sys.stdin.readline().split()]
         nodes[u - 1].append(v - 1)
         nodes[v - 1].append(u - 1)
 
@@ -27,6 +30,6 @@ for _ in range(K):
         return True
 
     result = search(0)
-    print("YES") if result == True else print("NO")
+    print("YES") if result is True else print("NO")
 
 
