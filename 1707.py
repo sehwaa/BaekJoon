@@ -1,40 +1,34 @@
-from collections import deque
-import sys
-
-K = int(sys.stdin.readline())
-
-
-def bfs(node_list, v):
-    visited = [False for _ in range(v+1)]
-
-    queue = deque()
-    queue.append(1)
-
-    while len(queue) != 0:
-        n = queue.popleft()
-        visited[n] = True
-
-        for cn in node_list[n]:
-            if cn in queue:
-                return False
-
-            if not visited[cn]:
-                queue.append(cn)
-
-    return True
-
-
+K = int(input())
+    
 for _ in range(K):
-    info = sys.stdin.readline().rstrip()
-    V = int(info[0])
-    E = int(info[2])
-    node = [[] for _ in range(V+1)]
+    V, E = map(int, input().split())
+    
+    nodes = [[] for _ in range(V)]
+    visited = [False] * V
+    colors = {i:'r' for i in range(V)}
+    
     for _ in range(E):
-        n1, n2 = list(map(int, input().split()))
-        node[n1].append(n2)
-        node[n2].append(n1)
-
-    if bfs(node, V):
-        print("YES")
-    else:
-        print("NO")
+        u,v = map(int, input().split())
+        nodes[u-1].append(v-1)
+        nodes[v-1].append(u-1)
+        
+    def search(node_idx):
+     visited[node_idx] = True
+        for v in nodes[node_idx]:
+            if visited[v] == False:
+                if colors[node_idx] == 'r':
+                    colors[v] = 'b'
+                search(v)
+                
+    search(0)
+    
+    def result():
+        for idx, adj in enumerate(nodes):
+            for n in adj:
+                if colors[idx] == colors[n]:
+                    print('NO')
+                    return
+        print('YES')
+        return
+    
+    result()
