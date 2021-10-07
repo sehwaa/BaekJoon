@@ -7,7 +7,7 @@ for _ in range(K):
     V, E = [int(x) for x in sys.stdin.readline().split()]
 
     nodes = [[] for _ in range(V)]
-    visited = [1] + [0] * (V-1)
+    visited = [0] * V
 
     for _ in range(E):
         u, v = [int(x) for x in sys.stdin.readline().split()]
@@ -29,7 +29,15 @@ for _ in range(K):
                 return False
         return True
 
-    result = search(0)
+    result = True
+
+    for i in range(0, V):
+        if visited[i] == 0:
+            visited[i] = 1
+            result = search(i)
+            if not result:
+                break
+
     print("YES") if result is True else print("NO")
 
 
